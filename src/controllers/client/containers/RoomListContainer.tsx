@@ -1,8 +1,8 @@
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
-import RoomList from "../../../views/components/Templates/RoomList";
+import { RoomList } from "../../../views/components/Organisms/RoomList";
 import { fetchRooms, RoomAction, RoomListState } from "../modules/RoomListModule";
-
 
 const mapStateToProps = (state: RoomListState) => {
   const {
@@ -26,4 +26,16 @@ const mapDispatchToProps = (
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RoomList);
+type RoomListProps = Parameters<typeof RoomList>[0];
+
+function RoomListContainer(props: RoomListProps) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchRooms());
+  }, []);
+
+  return <RoomList {...props} />;
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoomListContainer);
