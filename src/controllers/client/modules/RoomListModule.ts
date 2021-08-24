@@ -1,4 +1,6 @@
 import { Dispatch } from "react";
+import { ThunkAction } from "redux-thunk";
+import { ReduxAction, ReduxState } from "./rootReducer";
 
 type Room = {
   id: string,
@@ -14,7 +16,13 @@ export interface RoomListState {
 
 export const initialState: RoomListState = {
   room: {
-    roomList: []
+    roomList: [
+      {
+        id: "001",
+        title: "sample",
+        previousText: "room sample"
+      }
+    ]
   }
 };
 
@@ -37,10 +45,10 @@ export type RoomAction =
   | ReturnType<typeof fetchRoomsAction>
   | ReturnType<typeof deleteRoomAction>;
 
-export default function reducer(
+export const RoomListReducer = (
   state = initialState,
   action: RoomAction
-) {
+) => {
   switch (action.type) {
     case actionTypes.DELETE_ROOM:
       return {
@@ -57,9 +65,14 @@ export default function reducer(
   }
 }
 
-export const fetchRooms = () => {
-  return (dispatch: Dispatch<any>, getState: () => RoomListState) => {
-    const prevRooms = getState().room.roomList;
+export const fetchRooms = (): ThunkAction<
+  void,
+  ReduxState,
+  undefined,
+  ReduxAction
+> => {
+  return (dispatch, getState) => {
+    const prevRooms = getState().roomList.room.roomList;
     const RoomList = [];
     const room = { id: "0", title: "room0", previousText: "sample" }
     prevRooms.forEach(prevRoom => {

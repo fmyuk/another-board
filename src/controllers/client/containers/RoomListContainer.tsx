@@ -2,20 +2,21 @@ import { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { ThunkDispatch } from "redux-thunk";
 import { RoomList } from "../../../views/components/Organisms/RoomList";
-import { fetchRooms, RoomAction, RoomListState } from "../modules/RoomListModule";
+import { fetchRooms } from "../modules/RoomListModule";
+import { ReduxAction, ReduxState } from "../modules/rootReducer";
 
-const mapStateToProps = (state: RoomListState) => {
+const mapStateToProps = (state: ReduxState) => {
   const {
-    room
+    roomList
   } = state
 
   return {
-    room
+    room: roomList.room
   }
 };
 
 const mapDispatchToProps = (
-  dispatch: ThunkDispatch<RoomListState, undefined, RoomAction>
+  dispatch: ThunkDispatch<ReduxState, undefined, ReduxAction>
 ) => {
   return {
     actions: {
