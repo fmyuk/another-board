@@ -1,12 +1,15 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
 import { Switch, Route } from "react-router";
-import { RoomListContents } from "./views/components/Templates";
+import RoomListContents from "./views/components/Templates/RoomListContents";
 
 const Router = () => {
   return (
-    <Switch>
-      <Route exact path={"/room"} component={RoomListContents} />
-    </Switch>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path={"/roomList"} component={RoomListContents} />
+      </Switch>
+    </BrowserRouter>
   );
 };
 

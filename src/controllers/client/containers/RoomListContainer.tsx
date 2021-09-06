@@ -8,11 +8,11 @@ import { ReduxAction, ReduxState } from "../modules/rootReducer";
 const mapStateToProps = (state: ReduxState) => {
   const {
     roomList
-  } = state
+  } = state;
 
   return {
-    room: roomList.room
-  }
+    roomList: roomList.room.roomList
+  };
 };
 
 const mapDispatchToProps = (
